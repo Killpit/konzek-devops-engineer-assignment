@@ -6,11 +6,27 @@
 
 - Application code for Python HTTP server, a simple JSON file and simple HTTP code that shows an output if reached by localhost:3000
 - Systemd unit file
-- Instructions for deploying and verifying the service
+- Instructions for deploying and verifying the service (in this readme file)
 
 ## Instructions for deploying and verifying the service
 
 - Setup virtual environment for Python
-- The second step consists of testing the application locally by using python3 main.py and opening a browser such as Chrome and writing localhost:3000 and getting a response
+- Test the application locally by using python3 main.py and opening a browser such as Chrome and writing localhost:3000 and getting a response
+- Test the application with unit testing to further validate the application is working
+Testing application is combined into another step as both of them cannot be tested independently from each other
+
 
 ### Setup virtual environment for Python
+
+- Go to task 1 directory with cd path/konzek-devops-engineer-assignment/task1 command
+- Create the virtual environment with python3 -m venv venv
+- Then go to venv directory with cd venv
+- And then activate the virtual environment (venv) with source path/konzek-devops-engineer-assignment/task1/venv/bin/activate for Bash,
+activating with Fish source path/konzek-devops-engineer-assignment/task1/venv/bin/activate.fish, or with 
+PowerShell: source path/konzek-devops-engineer-assignment/task1/venv/bin/Activate.ps1
+As an additional note, to activate the virtual environments, wither Fish, Bash or PowerShell should be installed and this task is made by using Bash in Linux
+- venv is used as the virtual environment as the application expected at assignment was supposed to be a simple one
+
+### Testing the application locally (without and with unit testing)
+
+- After following the instructions to activate the virtual environment, write python3 main.py to activate the HTTP Server and the open up a browser and write localhost:3000 or writing localhost:3000/books as an example to test the application locally
