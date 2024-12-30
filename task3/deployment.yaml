@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: http-server-deployment
+  labels:
+    app.kubernetes.io/name: http-server
+spec:
+  replicas: 2  # The number of pod replicas you want to run
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: http-server
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: http-server
+    spec:
+      containers:
+        - name: http-server
+          image: your-image:tag  # Replace with your Docker image and tag
+          ports:
+            - containerPort: 3000  # This is the port your app listens to for HTTP traffic
+            - containerPort: 3001  # This is the port your app listens to for HTTPS traffic
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

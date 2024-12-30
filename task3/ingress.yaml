@@ -1,0 +1,30 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Redirect HTTP to HTTPS
+spec:
+  rules:
+    - host: example.com  # Replace with your actual domain
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: http-server-service
+                port:
+                  name: HTTP  # This will route traffic to port 80 (HTTP)
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: http-server-service
+                port:
+                  name: HTTPS  # This will route traffic to port 443 (HTTPS)
+  tls:
+    - hosts:
+        - example.com  # Replace with your actual domain
+      secretName: tls-secret  # Ensure this secret exists for SSL/TLS
