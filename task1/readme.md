@@ -14,7 +14,7 @@
 - Test the application locally by using python3 main.py and opening a browser such as Chrome and writing localhost:3000 and getting a response
 - Test the application with unit testing to further validate the application is working
 Testing application is combined into another step as both of them cannot be tested independently from each other
-
+- Writing the systemd and deploying the application using systemd and ensuring it starts automatically on boot
 
 ### Setup virtual environment for Python
 
@@ -27,6 +27,7 @@ PowerShell: source path/konzek-devops-engineer-assignment/task1/venv/bin/Activat
 As an additional note, to activate the virtual environments, wither Fish, Bash or PowerShell should be installed and this task is made by using Bash in Linux
 - venv is used as the virtual environment as the application expected at assignment was supposed to be a simple one
 
-### Testing the application locally (without and with unit testing)
+### Testing the application locally
 
 - After following the instructions to activate the virtual environment, write python3 main.py to activate the HTTP Server and the open up a browser and write localhost:3000 or writing localhost:3000/books as an example to test the application locally
+
