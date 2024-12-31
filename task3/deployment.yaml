@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/name: http-server
 spec:
-  replicas: 2  # The number of pod replicas you want to run
+  replicas: 3  # The number of pod replicas you want to run
   selector:
     matchLabels:
       app.kubernetes.io/name: http-server
@@ -18,12 +18,47 @@ spec:
         - name: http-server
           image: your-image:tag  # Replace with your Docker image and tag
           ports:
-            - containerPort: 3000  # This is the port your app listens to for HTTP traffic
-            - containerPort: 3001  # This is the port your app listens to for HTTPS traffic
+            - containerPort: 3000  # HTTP port
+            - containerPort: 3001  # HTTPS port (optional if used)
           resources:
             requests:
               memory: "64Mi"
-              cpu: "250m"
+              cpu: "256m"
             limits:
               memory: "128Mi"
-              cpu: "500m"
+              cpu: "512m"
+          
+          # Liveness probe checks if the app is running
+          livenessProbe:
+            httpGet:
+              path: /healthz  # Path where liveness check will be performed
+              port: 3000  # Port to check on the container
+            initialDelaySeconds: 10  # Wait time before starting checks
+            periodSeconds: 5  # How often to perform the check
+
+          # Readiness probe checks if the app is ready to serve traffic
+          readinessProbe:
+            httpGet:
+              path: /healthz  # Path where readiness check will be performed
+              port: 3000  # Port to check on the container
+            initialDelaySeconds: 5  # Delay before checking readiness
+            periodSeconds: 5  # How often to perform the check
+
+      # Affinity rules for pod placement (to ensure pods are spread across nodes)
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app.kubernetes.io/name
+                    operator: In
+                    values:
+                      - http-server
+              topologyKey: "kubernetes.io/hostname"  # Ensures pods are spread across nodes
+
+  # Rolling update strategy to control how new versions of the app are deployed
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1  # Max number of pods created above the desired replicas during update
+      maxUnavailable: 1  # Max number of pods that can be unavailable during update
