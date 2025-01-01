@@ -27,4 +27,4 @@ COPY . .
 
 EXPOSE 8000
 
-CMD python3 app1.py
+CMD python3 app.py

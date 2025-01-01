@@ -31,3 +31,20 @@ As an additional note, to activate the virtual environments, wither Fish, Bash o
 
 - After following the instructions to activate the virtual environment, write python3 main.py to activate the HTTP Server and the open up a browser and write localhost:3000 or writing localhost:3000/books as an example to test the application locally
 
+### Deploying Systemd Service and Automatically Starting on Boot
+
+#### Enable the Service to Start on Boot
+
+- Reload systemd to recognize the new unit file with sudo systemctl daemon-reload
+- Enable the service to start on boot with sudo systemctl enable http-server
+- Start the service with sudo systemctl start http-server
+- Check the status of the service with sudo systemctl status http-server
+
+#### Verify the Service
+
+- cat /var/log/http-server.log (Standard Logs)
+- cat /var/log/http-server-error.log (Error Logs)
+
+Restarting machine to verify services are starting on boot:
+
+- sudo reboot

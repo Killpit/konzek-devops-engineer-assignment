@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: simple-python-app
-        image: abhishekf5/crashlooptest:v2
+        image: atatekeli/simple-python-app:v2
         ports:
         - containerPort: 8000
         resources:
