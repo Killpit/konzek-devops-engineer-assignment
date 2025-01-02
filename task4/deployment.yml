@@ -16,10 +16,6 @@ spec:
     spec:
       containers:
       - name: simple-python-app
-        image: atatekeli/simple-python-app:v2
+        image: atatekeli/simple-python-app:v2 (initially used v1 to do troubleshooting and Dockerfile had app1.py for troubleshooting purposes, all were fixed to v2 and app.py repeatedly)
         ports:
         - containerPort: 8000
-        resources:
-         limits:
-          cpu: "25m"
-          memory: "25Mi"

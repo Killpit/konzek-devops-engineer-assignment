@@ -9,7 +9,7 @@ This documentation covers the troubleshooting aspect of Kubernetes deployment wi
 - To build the container, write docker build -t atatekeli/simple-python-app:v1 . (never forget to change the username)
 - Push the image to Docker registry or DockerHub with atatekeli/simple-python-app:v1 (never forget to change the username)
 - Start the minikube cluster with minikube start (there is an assumption that minikube is installed)
-- Deploy the manifest file with kubectl apply -f deployment.yml
+- Deploy the manifest file with kubectl apply -f deployment.yml after returning to task4 with cd ..
 - Watch the changes in real time with kubectl get pods -w
 Here, we get CrashLoopBackOff and the aim is to troubleshoot with logs
 NAME                         READY   STATUS             RESTARTS     AGE
@@ -34,3 +34,4 @@ So, we will fix our Dockerfile first and then start the building and pushing con
 
 To do the container building and pushing again, you can follow the steps in container creation with just replacing v1 to v2
 
+- After building the container from v1 to v2, you can delete the deployment with kubectl delete deployment flask-app and check again if the deployment is deleted with kubectl get deployments. And after you changed the atatekeli/simple-python-app from v1 to v2, the problem is solved and the deployment is working
