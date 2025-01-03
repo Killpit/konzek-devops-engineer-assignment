@@ -1,4 +1,4 @@
-# Task 1 Documentation
+# Task 2 Documentation
 
 - This documentation contains necessary knowledge about the application and instructions for deploying and verifying the service
 
@@ -8,9 +8,19 @@
 - Systemd unit file
 - Instructions for deploying and verifying the service
 
-## Instructions for deploying and verifying the service
+## Instructions for Docker-Based Application Deployment
 
-- Setup virtual environment for Python
-- The second step consists of testing the application locally by using python3 main.py and opening a browser such as Chrome and writing localhost:3000 and getting a response
+#### Running the Dockerfile for Local Testing
 
-### Setup virtual environment for Python
+- docker build -t task2-app .
+- docker run -d -p 8000:8000 task2-app (for testing)
+- docker push task-2-app
+
+#### Testing and deploying with Docker Compose
+
+- docker-compose up --scale app=3 (Starting services)
+- Verify the application with http://localhost
+- Check running containers with docker ps
+- Check logs with docker-compose logs
+- Test replica distribution with curl http://localhost
+- Stop one replica manually with docker stop <container-id>
