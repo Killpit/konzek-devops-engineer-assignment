@@ -33,6 +33,46 @@ As an additional note, to activate the virtual environments, wither Fish, Bash o
 
 ### Deploying Systemd Service and Automatically Starting on Boot
 
+#### Create the User and Group
+
+- sudo groupadd http-server
+- sudo useradd --system --no-create-home --gid http-server --shell /bin/false http-server-user
+
+#### Create appropriate files
+
+- sudo touch /var/log/http-server.log /var/log/http-server-error.log
+
+#### Give necessary permissions for the log files
+
+- sudo chown http-server-user:http-server /var/log/http-server.log
+- sudo chown http-server-user:http-server /var/log/http-server-error.log
+- sudo chmod 644 /var/log/http-server.log
+- sudo chmod 644 /var/log/http-server-error.log
+
+#### Create the Logrotate file
+
+- sudo vi /etc/logrotate.d/http-server
+
+#### Testing Logrotate
+
+- sudo logrotate /etc/logrotate.conf --debug
+
+#### Executing Logrotate
+
+- sudo logrotate /etc/logrotate.conf
+
+#### Give necessary permissions for the venv and working directory
+
+**venv**
+
+- sudo chown -R http-server-user:http-server /path/to/your/virtualenv
+- sudo chmod -R 755 /path/to/your/virtualenv
+
+**Working Directory**
+
+- sudo chown -R http-server-user:http-server /path/to/your/app
+- sudo chmod -R 755 /path/to/your/app
+
 #### Enable the Service to Start on Boot
 
 - Reload systemd to recognize the new unit file with sudo systemctl daemon-reload
@@ -48,3 +88,9 @@ As an additional note, to activate the virtual environments, wither Fish, Bash o
 Restarting machine to verify services are starting on boot:
 
 - sudo reboot
+
+### Troubleshooting and checking logs
+
+- sudo systemctl status http-server
+- cat /var/log/http-server.log
+- cat /var/log/http-server-error.log

@@ -3,13 +3,13 @@ Description=Simple HTTP Server
 After=network.target
 
 [Service]
-ExecStart=/path/to/your/virtualenv/bin/python /path/to/your/app/main.py
+ExecStart=/home/your-user/konzek-devops-engineer-assignment/task1/venv/bin/python /home/your-user/konzek-devops-enginee-assignment/task1/main.py
 WorkingDirectory=/path/to/your/app
 Restart=always
-User=youruser
-Group=yourgroup
-StandardOutput=file:/path/to/logs/http-server.log
-StandardError=file:/path/to/logs/http-server
+User=http-server-user
+Group=http-server
+StandardOutput=file:/var/log/http-server.log
+StandardError=file:/var/log/http-server-error.log
 
 [Install]
 WantedBy=multi-user.target
