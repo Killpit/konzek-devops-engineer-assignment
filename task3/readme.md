@@ -1,20 +1,11 @@
 # Task 3 Documentation
 
-### Deploying manifest files
+### Setting up minikube cluster
 
-- Go to cd manifests from task3 file
-- For deployment file, write kubectl apply -f deployment.yaml
-- For service file, write kubectl apply -f service.yaml
-- For ingress, write kubectl apply -f ingress.yaml
-- For ClusterIssuer, write kubectl apply -f clusterIssuer.yaml
-- For cert-manager, write kubectl apply -f certManager.yaml
+This section assumes Minikube is installed. We use minikube due to local deployment and testing and it should not be used in production environments.
 
-Before deploying ingress.yaml, it's highly recommended to deploy ClusterIssuer and certManager beforehand 
+To start minikube:
 
-#### Checking the manifest files
+- minikube start
+- And then use minikube addons enable ingress to allow ingress in this cluster
 
-- Use kubectl get pods to check whether the pods are working with the status
-- For services, use kubectl get services to check whether the services are working
-- Use kubectl get deployments to check deployments
-- Use kubectl get ingress to check whether the ingress status
-- 

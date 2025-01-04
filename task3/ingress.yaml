@@ -17,13 +17,6 @@ spec:
                 name: http-server-service
                 port:
                   name: HTTP  # This will route traffic to port 80 (HTTP)
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: http-server-service
-                port:
-                  name: HTTPS  # This will route traffic to port 443 (HTTPS)
   tls:
     - hosts:
         - localhost:3000  # Replace with your actual domain

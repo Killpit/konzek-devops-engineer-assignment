@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: http-server
-          image: your-image:tag  # Replace with your Docker image and tag
+          image: atatekeli/simple-python-app:v2  # Replace with your Docker image and tag
           ports:
             - containerPort: 3000  # HTTP port
             - containerPort: 3001  # HTTPS port (optional if used)
@@ -34,14 +34,6 @@ spec:
               path: /healthz  # Path where liveness check will be performed
               port: 3000  # Port to check on the container
             initialDelaySeconds: 10  # Wait time before starting checks
-            periodSeconds: 5  # How often to perform the check
-
-          # Readiness probe checks if the app is ready to serve traffic
-          readinessProbe:
-            httpGet:
-              path: /healthz  # Path where readiness check will be performed
-              port: 3000  # Port to check on the container
-            initialDelaySeconds: 5  # Delay before checking readiness
             periodSeconds: 5  # How often to perform the check
 
       # Affinity rules for pod placement (to ensure pods are spread across nodes)
