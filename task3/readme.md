@@ -34,5 +34,5 @@ Ingress: ```kubectl get ingress```
 
 Update the application image with:
 
-- ```kubectl set image deployment/http-server-deployment http-server=atatekeli/simple-python-app:v2``` (for updating the image)
+- ```kubectl set image deployment/http-server-deployment http-server=atatekeli/simple-python-app:v2``` (for updating the image with rolling deployment)
 - ```kubectl rollout status deployment/http-server-deployment``` (for monitoring rollout status)
