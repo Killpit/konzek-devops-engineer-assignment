@@ -12,15 +12,15 @@
 
 #### Running the Dockerfile for Local Testing
 
-- docker build -t task2-app .
-- docker run -d -p 8000:8000 task2-app (for testing)
-- docker push task-2-app
+- ```docker build -t task2-app .```
+- ```docker run -d -p 8000:8000 task2-app``` (for testing)
+- ```docker push task-2-app```
 
 #### Testing and deploying with Docker Compose
 
-- docker-compose up --scale app=3 (Starting services)
-- Verify the application with http://localhost
-- Check running containers with docker ps
-- Check logs with docker-compose logs
-- Test replica distribution with curl http://localhost
-- Stop one replica manually with docker stop <container-id>
+- ```docker-compose up --scale app=3``` (Starting services)
+- Verify the application with ```http://localhost```
+- Check running containers with ```docker ps```
+- Check logs with ```docker compose logs```
+- Test replica distribution with ```curl http://localhost```
+- Stop one replica manually with ```docker stop <container-id>```
