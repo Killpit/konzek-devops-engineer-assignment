@@ -12,23 +12,35 @@ This documentation covers the troubleshooting aspect of Kubernetes deployment wi
 - Deploy the manifest file with ```kubectl apply -f deployment.yml``` after returning to task4 with cd ..
 - Watch the changes in real time with ```kubectl get pods -w```
 Here, we get CrashLoopBackOff and the aim is to troubleshoot with logs
+## Pod Status and Error Details
 
-NAME                         READY   STATUS             RESTARTS     AGE
-flask-app-86cf874c46-575wl   0/1     CrashLoopBackOff   1 (7s ago)   41s
-flask-app-86cf874c46-575wl   1/1     Running            2 (24s ago)   58s
-flask-app-86cf874c46-575wl   0/1     Error              2 (29s ago)   63s
-flask-app-86cf874c46-575wl   0/1     CrashLoopBackOff   2 (17s ago)   75s
-STATUS                       REASON          MESSAGE
-Failure                      InternalError   an error on the server ("unable to decode an event from the watch stream: http2: client connection lost") has prevented the request from succeeding
+### Pod Events
+
+| **NAME**                     | **READY** | **STATUS**           | **RESTARTS** | **AGE** |
+|------------------------------|-----------|----------------------|--------------|---------|
+| flask-app-86cf874c46-575wl   | 0/1       | CrashLoopBackOff     | 1 (7s ago)   | 41s     |
+| flask-app-86cf874c46-575wl   | 1/1       | Running              | 2 (24s ago)  | 58s     |
+| flask-app-86cf874c46-575wl   | 0/1       | Error                | 2 (29s ago)  | 63s     |
+| flask-app-86cf874c46-575wl   | 0/1       | CrashLoopBackOff     | 2 (17s ago)  | 75s     |
+
+### Status Details
+
+| **STATUS** | **REASON**       | **MESSAGE**                                                                                  |
+|------------|------------------|----------------------------------------------------------------------------------------------|
+| Failure    | InternalError    | an error on the server ("unable to decode an event from the watch stream: http2: client connection lost") has prevented the request from succeeding |
 
 So we start by verifying the contexts by ```kubectl config get-contexts```
-          default/api-crc-testing:6443/kubeadmin                      api-crc-testing:6443                                        kubeadmin/api-crc-testing:6443                              default
-          docker-desktop                                              docker-desktop                                              docker-desktop                                              
-          gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo      gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo      gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo      
-          iam-root-account@demo-cluster.eu-north-1.eksctl.io          demo-cluster.eu-north-1.eksctl.io                           iam-root-account@demo-cluster.eu-north-1.eksctl.io          
-          iam-root-account@eks-monitoring.eu-north-1.eksctl.io        eks-monitoring.eu-north-1.eksctl.io                         iam-root-account@eks-monitoring.eu-north-1.eksctl.io        
-*         minikube                                                    minikube                                                    minikube                                                    default
-          three-tier-demo                                             three-tier-demo                                             clusterUser_ecommerce-demo_three-tier-demo                  
+## Kubernetes Contexts Table
+
+| Context Name                                               | Cluster Endpoint                                          | User/Cluster Context                                       | Default |
+|------------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------------|---------|
+| default/api-crc-testing:6443/kubeadmin                     | api-crc-testing:6443                                      | kubeadmin/api-crc-testing:6443                            | default |
+| docker-desktop                                             | docker-desktop                                            | docker-desktop                                            |         |
+| gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo     | gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo    | gke_gcp-zero-to-hero-demos_us-central1_three-tier-demo    |         |
+| iam-root-account@demo-cluster.eu-north-1.eksctl.io         | demo-cluster.eu-north-1.eksctl.io                         | iam-root-account@demo-cluster.eu-north-1.eksctl.io        |         |
+| iam-root-account@eks-monitoring.eu-north-1.eksctl.io       | eks-monitoring.eu-north-1.eksctl.io                       | iam-root-account@eks-monitoring.eu-north-1.eksctl.io      |         |
+| * minikube                                                 | minikube                                                  | minikube                                                  | default |
+| three-tier-demo                                            | three-tier-demo                                           | clusterUser_ecommerce-demo_three-tier-demo                |         |
 However, we couldn't get anything from this command and now we will try to look at the logs to solve the problem with ```kubectl logs <pod-name>``` (replace the pod name after getting the pods' name by ```kubectl get pods```), and after reaching out the logs, we find that we have mistaken the name of the application with:
 ```python3: can't open file '/app/app1.py': [Errno 2] No such file or directory```
 So, we will fix our Dockerfile first and then start the building and pushing containers all over again, but before that, we can delete the deployment with kubectl delete deployment flask-app after getting the name of the deployment with kubectl get deployments.
